@@ -44,6 +44,9 @@ function Html5HlsJS(source, tech) {
   var hlsjsErrorHandler = errorHandlerFactory();
   var videoTagErrorHandler = errorHandlerFactory();
 
+  // allows access to HLS reference
+  tech.hls_ = hls;
+
   // listen to error events coming from the video tag
   el.addEventListener('error', function(e) {
     var mediaError = e.currentTarget.error;
@@ -60,7 +63,8 @@ function Html5HlsJS(source, tech) {
    *
    */
   this.dispose = function() {
-    hls.destroy();
+    tech.hls_.destroy();
+    tech.hls_ = null;
   };
 
   /**
